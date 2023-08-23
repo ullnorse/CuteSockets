@@ -1,10 +1,21 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlEngine>
+
+#include "Controllers/appmanager.h"
 
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    AppManager appManager;
+
+    qmlRegisterSingletonType<AppManager>("AppManager", 1, 0, "AppManager",
+        [&](QQmlEngine*, QJSEngine*) -> QObject* {
+            return &appManager;
+        }
+    );
 
     QQmlApplicationEngine engine;
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,

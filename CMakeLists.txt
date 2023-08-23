@@ -19,8 +19,9 @@ qt_add_qml_module(appCuteSockets
     URI CuteSockets
     VERSION 1.0
     QML_FILES Main.qml ui/ClientTab.qml ui/ServerTab.qml ui/UdpTab.qml ui/AboutTab.qml
-    QML_FILES
     RESOURCES qml.qrc
+    SOURCES Controllers/appmanager.h Controllers/appmanager.cpp
+    SOURCES Controllers/tcpserver.h Controllers/tcpserver.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
