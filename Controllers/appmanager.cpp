@@ -4,7 +4,8 @@
 
 AppManager::AppManager(QObject *parent)
     : QObject{parent},
-    m_server(new TcpServer(this))
+    m_server(new TcpServer(this)),
+    m_client(new TcpClient(this))
 {
     registerTypes();
 }
@@ -17,5 +18,9 @@ void AppManager::registerTypes()
         }
     );
 
-    qRegisterMetaType<QTcpSocket*>("QTcpSocket*");
+    qmlRegisterSingletonType<TcpClient>("TcpClient", 1, 0, "TcpClient",
+        [&](QQmlEngine*, QJSEngine*) -> QObject* {
+            return m_client;
+        }
+    );
 }

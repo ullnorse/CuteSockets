@@ -2,6 +2,8 @@ import QtQuick 2.15
 import QtQuick.Controls.Universal
 import QtQuick.Layouts
 
+import TcpClient 1.0
+
 Item {
     id: clientTab
 
@@ -54,7 +56,29 @@ Item {
                 }
 
                 Button {
-                    text: "Connect"
+                    id: connectButton
+                    property bool connectedToServer: TcpClient.connected
+                    text: connectedToServer ? ("Disconnect") : ("Connect")
+
+                    onClicked: {
+                        if (connectedToServer) {
+                            TcpClient.disconnectFromServer()
+                        } else {
+                            TcpClient.connectToServer("127.0.0.1", 8585)
+                        }
+                    }
+
+                    Connections {
+                        target: TcpClient
+
+                        function onConnectedToServer() {
+                            connectButton.connectedToServer = true
+                        }
+
+                        function onDisconnectedFromServer() {
+                            connectButton.connectedToServer = false
+                        }
+                    }
                 }
 
                 CheckBox {
@@ -81,6 +105,8 @@ Item {
             }
 
             TextArea {
+                id: textArea
+
                 Layout.minimumHeight: 150
                 Layout.fillWidth: true
                 Layout.fillHeight: true
@@ -88,6 +114,22 @@ Item {
 
                 background: Rectangle {
                     color: "white"
+                }
+
+                Connections {
+                    target: TcpClient
+
+                    function onConnectedToServer() {
+
+                    }
+
+                    function onDisconnectedFromServer() {
+
+                    }
+
+                    function onDataReceived(data) {
+                        textArea.insert(textArea.length, data);
+                    }
                 }
             }
 

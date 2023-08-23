@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "Controllers/tcpserver.h"
+#include "Controllers/tcpclient.h"
 
 class AppManager : public QObject
 {
@@ -18,6 +19,7 @@ private:
 
 private:
     TcpServer *m_server;
+    TcpClient *m_client;
 };
 
 #endif // APPMANAGER_H
