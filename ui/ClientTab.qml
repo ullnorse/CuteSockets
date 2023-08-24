@@ -31,8 +31,10 @@ Item {
             }
 
             TextField {
+                id: textFieldIPAddress
                 Layout.fillWidth: true
                 text: "127.0.0.1"
+                enabled: !TcpClient.connected
             }
 
             Text {
@@ -47,8 +49,10 @@ Item {
                 id: rowLayout2
 
                 TextField {
+                    id: textFieldPort
                     Layout.fillWidth: true
                     text: "8585"
+                    enabled: !TcpClient.connected
                 }
 
                 Button {
@@ -64,7 +68,7 @@ Item {
                         if (connectedToServer) {
                             TcpClient.disconnectFromServer()
                         } else {
-                            TcpClient.connectToServer("127.0.0.1", 8585)
+                            TcpClient.connectToServer(textFieldIPAddress.text, textFieldPort.text)
                         }
                     }
 
@@ -90,7 +94,10 @@ Item {
 
     GroupBox {
         id: groupBoxConnectedTo
-        title: "Connected To < None>"
+
+        property string serverIpAddress: TcpClient.connected ? (textFieldIPAddress.text) : ("NONE")
+
+        title: "Connected To < " + serverIpAddress + " >"
         anchors.top: groupBoxConnectTo.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -104,31 +111,34 @@ Item {
                 text: "Conversation with host"
             }
 
-            TextArea {
-                id: textArea
-
+            ScrollView {
                 Layout.minimumHeight: 150
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                readOnly: true
+                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
-                background: Rectangle {
-                    color: "white"
-                }
+                TextArea {
+                    id: textArea
+                    readOnly: true
 
-                Connections {
-                    target: TcpClient
-
-                    function onConnectedToServer() {
-
+                    background: Rectangle {
+                        color: "white"
                     }
 
-                    function onDisconnectedFromServer() {
+                    Connections {
+                        target: TcpClient
 
-                    }
+                        function onConnectedToServer() {
 
-                    function onDataReceived(data) {
-                        textArea.insert(textArea.length, data);
+                        }
+
+                        function onDisconnectedFromServer() {
+
+                        }
+
+                        function onDataReceived(data) {
+                            textArea.insert(textArea.length, data)
+                        }
                     }
                 }
             }
@@ -148,11 +158,27 @@ Item {
                         }
 
                         TextField {
+                            id: textFieldMessage
                             Layout.fillWidth: true
+                            enabled: TcpClient.connected
+
+                            Keys.enabled: true
+                            Keys.onReturnPressed: {
+                                TcpClient.sendMessageToServer(textFieldMessage.text + "\r\n")
+                                textArea.insert(textArea.length, "S: " + textFieldMessage.text + "\r\n")
+                                textFieldMessage.clear()
+                            }
                         }
 
                         Button {
                             text: "Send"
+                            enabled: TcpClient.connected
+
+                            onClicked: {
+                                TcpClient.sendMessageToServer(textFieldMessage.text + "\r\n")
+                                textArea.insert(textArea.length, "S: " + textFieldMessage.text + "\r\n")
+                                textFieldMessage.clear()
+                            }
                         }
                     }
                 }
@@ -169,6 +195,8 @@ Item {
                         text: "Clear"
                         Layout.minimumWidth: 60
                         Layout.maximumWidth: 60
+
+                        onClicked: textArea.clear()
                     }
                 }
             }

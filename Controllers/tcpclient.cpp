@@ -34,6 +34,14 @@ void TcpClient::disconnectFromServer()
     m_socket->disconnectFromHost();
 }
 
+void TcpClient::sendMessageToServer(const QString &message)
+{
+    if (m_socket)
+    {
+        m_socket->write(qPrintable(message));
+    }
+}
+
 bool TcpClient::connected() const
 {
     return m_connected;

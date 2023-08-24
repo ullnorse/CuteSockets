@@ -14,6 +14,7 @@ public:
 
     Q_INVOKABLE void connectToServer(const QString &address, quint16 port);
     Q_INVOKABLE void disconnectFromServer();
+    Q_INVOKABLE void sendMessageToServer(const QString &message);
 
     bool connected() const;
     void setConnected(bool state);

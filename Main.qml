@@ -5,10 +5,10 @@ import QtQuick.Layouts
 
 Window {
     id: root
-    width: 640
-    height: 480
+    width: 720
+    height: 700
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("CuteSockets")
     color: "#ffeeeee6"
 
     TabBar {

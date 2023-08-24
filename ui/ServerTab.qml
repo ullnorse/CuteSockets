@@ -7,6 +7,20 @@ import TcpServer 1.0
 Item {
     id: serverTab
 
+    property bool serverListening: false
+
+    Connections {
+        target: TcpServer
+
+        function onStartedListening() {
+            serverListening = true
+        }
+
+        function onStoppedListening() {
+            serverListening = false
+        }
+    }
+
     GroupBox {
         id: groupBoxConnectTo
         title: "Listen On"
@@ -31,8 +45,11 @@ Item {
             }
 
             TextField {
+                id: textFieldIPAddress
                 Layout.fillWidth: true
                 text: "127.0.0.1"
+
+                enabled: !serverListening
             }
 
             Text {
@@ -47,8 +64,11 @@ Item {
                 id: rowLayout2
 
                 TextField {
+                    id: textFieldPort
                     Layout.fillWidth: true
                     text: "8585"
+
+                    enabled: !serverListening
                 }
 
                 Button {
@@ -62,16 +82,12 @@ Item {
                 }
 
                 Button {
-                    property bool startedListening: false
+                    text: serverListening ? "Stop Listening" : "Start Listening"
 
-                    text: startedListening ? "Stop Listening" : "Start Listening"
-
-                    onClicked: if (startedListening) {
+                    onClicked: if (serverListening) {
                         TcpServer.stopServer()
-                        startedListening = false
                     } else {
-                        TcpServer.startServer("127.0.0.1", 8585);
-                        startedListening = true
+                        TcpServer.startServer(textFieldIPAddress.text, textFieldPort.text);
                     }
                 }
             }
@@ -116,7 +132,7 @@ Item {
                         target: TcpServer
 
                         function onStartedListening() {
-                            textArea.append("> Server Started on Port:")
+                            textArea.append("> Server Started on Port: " + textFieldPort.text)
                             textArea.append("> ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
                         }
 
