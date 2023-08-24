@@ -188,6 +188,7 @@ Item {
                         RowLayout {
                             TextField {
                                 id: textField
+                                text: "127.0.0.1"
                                 Layout.fillWidth: true
 
                                 Keys.enabled: true
