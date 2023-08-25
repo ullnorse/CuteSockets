@@ -10,16 +10,18 @@ UdpServer::UdpServer(QObject *parent)
     connect(m_socket, &QUdpSocket::readyRead, this, &UdpServer::handleReadyRead);
 }
 
-void UdpServer::startServer(const QString &address, quint16 port)
+bool UdpServer::startServer(const QString &address, quint16 port)
 {
     if (m_socket->bind(QHostAddress(address), port))
     {
         qDebug() << "UdpServer: Successfully listening on address:" << address << ":" << port;
         emit startedListening();
+        return true;
     }
     else
     {
         qDebug() << "UdpServer: Could not start listening";
+        return false;
     }
 }
 

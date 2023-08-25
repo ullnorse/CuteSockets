@@ -9,16 +9,18 @@ TcpServer::TcpServer(QObject *parent)
     connect(m_server, &QTcpServer::newConnection, this, &TcpServer::handleNewConnection);
 }
 
-void TcpServer::startServer(const QString &address, quint16 port)
+bool TcpServer::startServer(const QString &address, quint16 port)
 {
     if (m_server->listen(QHostAddress(address), port))
     {
         emit startedListening();
         qDebug() << "TcpServer: Listening on address:" << address << ":" << port;
+        return true;
     }
     else
     {
         qDebug() << "TcpServer: Could not start listening";
+        return false;
     }
 }
 

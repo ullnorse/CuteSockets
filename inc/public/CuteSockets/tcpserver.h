@@ -13,7 +13,7 @@ class TcpServer : public QObject
 public:
     explicit TcpServer(QObject *parent = nullptr);
 
-    Q_INVOKABLE void startServer(const QString &address, quint16 port);
+    Q_INVOKABLE bool startServer(const QString &address, quint16 port);
     Q_INVOKABLE void stopServer();
     Q_INVOKABLE void disconnectClient();
     Q_INVOKABLE QString clientAddress();

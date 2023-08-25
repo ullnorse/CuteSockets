@@ -2,26 +2,14 @@
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
 
-#include "appmanager.h"
-
+#include "app.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QGuiApplication qtGuiApp(argc, argv);
 
-    AppManager appManager;
+    App app;
+    app.init();
 
-    qmlRegisterSingletonType<AppManager>("AppManager", 1, 0, "AppManager",
-        [&](QQmlEngine*, QJSEngine*) -> QObject* {
-            return &appManager;
-        }
-    );
-
-    QQmlApplicationEngine engine;
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
-        &app, []() { QCoreApplication::exit(-1); },
-        Qt::QueuedConnection);
-    engine.loadFromModule("CuteSockets", "Main");
-
-    return app.exec();
+    return qtGuiApp.exec();
 }

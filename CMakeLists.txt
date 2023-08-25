@@ -9,7 +9,7 @@ set(CMAKE_AUTOMOC ON)
 
 set(SOURCES
     # cmake-format: sort
-    src/appmanager.cpp
+    src/app.cpp
     src/tcpclient.cpp
     src/tcpserver.cpp
     src/udpserver.cpp
@@ -17,7 +17,7 @@ set(SOURCES
 
 set(HEADER
     # cmake-format: sort
-    inc/public/CuteSockets/appmanager.h
+    inc/public/CuteSockets/app.h
     inc/public/CuteSockets/tcpclient.h
     inc/public/CuteSockets/tcpserver.h
     inc/public/CuteSockets/udpserver.h

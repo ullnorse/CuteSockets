@@ -10,7 +10,7 @@ class UdpServer : public QObject
 public:
     explicit UdpServer(QObject *parent = nullptr);
 
-    Q_INVOKABLE void startServer(const QString &address, quint16 port);
+    Q_INVOKABLE bool startServer(const QString &address, quint16 port);
     Q_INVOKABLE void stopServer();
     Q_INVOKABLE void sendMessage(const QString &message, const QString &address, quint16 port);
 

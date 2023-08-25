@@ -87,7 +87,9 @@ Item {
                     onClicked: if (serverListening) {
                         TcpServer.stopServer()
                     } else {
-                        TcpServer.startServer(textFieldIPAddress.text, textFieldPort.text);
+                        if (!TcpServer.startServer(textFieldIPAddress.text, textFieldPort.text)) {
+
+                        }
                     }
                 }
             }

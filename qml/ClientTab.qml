@@ -8,7 +8,7 @@ Item {
     id: clientTab
 
     GroupBox {
-        id: groupBoxConnectTo
+        id: gbConnectTo
         title: "Connect To"
 
         anchors {
@@ -24,7 +24,6 @@ Item {
             rows: 2
 
             Text {
-                id: labelIPAddress
                 text: "IP Address"
                 Layout.maximumWidth: 70
                 Layout.minimumWidth: 70
@@ -46,8 +45,6 @@ Item {
             }
 
             RowLayout {
-                id: rowLayout2
-
                 TextField {
                     id: textFieldPort
                     Layout.fillWidth: true
@@ -98,11 +95,14 @@ Item {
         property string serverIpAddress: TcpClient.connected ? (textFieldIPAddress.text) : ("NONE")
 
         title: "Connected To < " + serverIpAddress + " >"
-        anchors.top: groupBoxConnectTo.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.topMargin: 10
+
+        anchors {
+            top: gbConnectTo.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            topMargin: 10
+        }
 
         ColumnLayout {
             anchors.fill: parent
@@ -127,14 +127,6 @@ Item {
 
                     Connections {
                         target: TcpClient
-
-                        function onConnectedToServer() {
-
-                        }
-
-                        function onDisconnectedFromServer() {
-
-                        }
 
                         function onDataReceived(data) {
                             textArea.insert(textArea.length, data)
