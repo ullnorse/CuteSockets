@@ -18,7 +18,7 @@ qt_add_executable(appCuteSockets
 qt_add_qml_module(appCuteSockets
     URI CuteSockets
     VERSION 1.0
-    QML_FILES Main.qml ui/ClientTab.qml ui/ServerTab.qml ui/UdpTab.qml ui/AboutTab.qml
+    QML_FILES Main.qml ui/ClientTab.qml ui/ServerTab.qml ui/UdpTab.qml
     RESOURCES qml.qrc
     SOURCES Controllers/appmanager.h Controllers/appmanager.cpp
     SOURCES Controllers/tcpserver.h Controllers/tcpserver.cpp

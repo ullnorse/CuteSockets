@@ -30,10 +30,6 @@ Window {
         TabButton {
             text: "Udp"
         }
-
-        TabButton {
-            text: "About"
-        }
     }
 
     StackLayout {
@@ -60,10 +56,6 @@ Window {
         }
 
         UdpTab {
-
-        }
-
-        AboutTab {
 
         }
     }

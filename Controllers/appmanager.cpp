@@ -11,6 +11,11 @@ AppManager::AppManager(QObject *parent)
     registerTypes();
 }
 
+void AppManager::aboutQt()
+{
+
+}
+
 void AppManager::registerTypes()
 {
     qmlRegisterSingletonType<TcpServer>("TcpServer", 1, 0, "TcpServer",

@@ -1,6 +1,7 @@
 #include "udpserver.h"
 
 #include <QDebug>
+#include <QNetworkDatagram>
 
 UdpServer::UdpServer(QObject *parent)
     : QObject{parent},
@@ -30,7 +31,10 @@ void UdpServer::stopServer()
 
 void UdpServer::sendMessage(const QString &message, const QString &address, quint16 port)
 {
-    qDebug() << "msg:" << message << "address:" << address << "port:" << port;
+    auto socket = std::make_unique<QUdpSocket>();
+
+    socket->connectToHost(QHostAddress(address), port);
+    socket->writeDatagram(QNetworkDatagram(message.toUtf8()));
 }
 
 void UdpServer::handleReadyRead()

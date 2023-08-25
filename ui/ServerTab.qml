@@ -121,7 +121,6 @@ Item {
 
                 TextArea {
                     id: textArea
-                    anchors.fill: parent
                     readOnly: true
 
                     background: Rectangle {

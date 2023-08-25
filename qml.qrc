@@ -3,6 +3,5 @@
         <file>ui/ClientTab.qml</file>
         <file>ui/ServerTab.qml</file>
         <file>ui/UdpTab.qml</file>
-        <file>ui/AboutTab.qml</file>
     </qresource>
 </RCC>

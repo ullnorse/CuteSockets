@@ -13,6 +13,8 @@ class AppManager : public QObject
 public:
     explicit AppManager(QObject *parent = nullptr);
 
+    Q_INVOKABLE void aboutQt();
+
 signals:
 
 private:

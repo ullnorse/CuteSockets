@@ -115,7 +115,6 @@ Item {
 
                 TextArea {
                     id: textArea
-                    anchors.fill: parent
                     readOnly: true
 
                     background: Rectangle {
@@ -136,7 +135,7 @@ Item {
                         }
 
                         function onDataReceived(data) {
-                            textArea.insert(textArea.length, data)
+                            textArea.insert(textArea.length, "R[" + textFieldIPAddress.text + ":" + textFieldPort.text + "]: " + data)
                         }
                     }
                 }
@@ -162,6 +161,7 @@ Item {
                         RowLayout {
                             TextField {
                                 id: textFieldIPAddressSend
+                                text: "127.0.0.1"
                                 Layout.fillWidth: true
                             }
 
@@ -193,7 +193,7 @@ Item {
                                 Keys.enabled: true
                                 Keys.onReturnPressed: {
                                     UdpServer.sendMessage(textField.text + "\r\n", textFieldIPAddressSend.text, textFieldPortSend.text)
-                                    textArea.insert(textArea.length, "S: " + textField.text + "\r\n")
+                                    textArea.insert(textArea.length, "S[" + textFieldIPAddressSend.text + ":" + textFieldPortSend.text + "]: " + textField.text + "\r\n")
                                     textField.clear()
                                 }
                             }
@@ -205,7 +205,7 @@ Item {
 
                                 onClicked: {
                                     UdpServer.sendMessage(textField.text + "\r\n", textFieldIPAddressSend.text, textFieldPortSend.text)
-                                    textArea.insert(textArea.length, "S: " + textField.text + "\r\n")
+                                    textArea.insert(textArea.length, "S[" + textFieldIPAddressSend.text + ":" + textFieldPortSend.text + "]: " + textField.text + "\r\n")
                                     textField.clear()
                                 }
                             }
