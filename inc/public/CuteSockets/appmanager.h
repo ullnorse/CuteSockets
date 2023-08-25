@@ -3,9 +3,9 @@
 
 #include <QObject>
 
-#include "Controllers/tcpserver.h"
-#include "Controllers/tcpclient.h"
-#include "Controllers/udpserver.h"
+#include "tcpserver.h"
+#include "tcpclient.h"
+#include "udpserver.h"
 
 class AppManager : public QObject
 {

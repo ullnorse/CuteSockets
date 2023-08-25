@@ -2,7 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlEngine>
 
-#include "Controllers/appmanager.h"
+#include "appmanager.h"
 
 
 int main(int argc, char *argv[])

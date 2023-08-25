@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>ui/ClientTab.qml</file>
-        <file>ui/ServerTab.qml</file>
-        <file>ui/UdpTab.qml</file>
-    </qresource>
-</RCC>
